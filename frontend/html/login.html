@@ -3,42 +3,331 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Page</title>
-
-    <link rel="stylesheet" href="../css/login.css">
+    <title>Account Portal</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
+    <div class="background-characters" aria-hidden="true">
+        <div class="funny-character char-1">
+            <div class="face">
+                <div class="eye left"><div class="pupil"></div></div>
+                <div class="eye right"><div class="pupil"></div></div>
+                <div class="smile"></div>
+                <div class="horn left"></div>
+                <div class="horn right"></div>
+            </div>
+        </div>
+        <div class="funny-character char-2">
+            <div class="face">
+                <div class="eye left"><div class="pupil"></div></div>
+                <div class="eye right"><div class="pupil"></div></div>
+                <div class="mouth mouth-open"></div>
+                <div class="star"></div>
+            </div>
+        </div>
+        <div class="funny-character char-3">
+            <div class="face">
+                <div class="eye left"><div class="pupil"></div></div>
+                <div class="eye right"><div class="pupil"></div></div>
+                <div class="glasses"></div>
+                <div class="mouth mouth-flat"></div>
+            </div>
+        </div>
+        <div class="funny-character char-4">
+            <div class="face">
+                <div class="eye left"><div class="pupil"></div></div>
+                <div class="eye right"><div class="pupil"></div></div>
+                <div class="nose"></div>
+                <div class="mouth mouth-grin"></div>
+            </div>
+        </div>
+        <div class="funny-character char-5">
+            <div class="face">
+                <div class="eye left"><div class="pupil"></div></div>
+                <div class="eye right"><div class="pupil"></div></div>
+                <div class="mustache"></div>
+                <div class="mouth mouth-smile"></div>
+            </div>
+        </div>
+    </div>
+    <div class="page">
+        <h1 id="panelTitle">Login</h1>
 
-<div class="login-box">
+        <section id="loginPanel" class="panel active">
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="loginUsername">Username</label>
+                    <input type="text" id="loginUsername" name="loginUsername" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" name="loginPassword" required>
+                </div>
+                <button type="submit">Login</button>
+                <div id="loginMessage" class="message"></div>
+            </form>
+            <p class="small-text">Forgot password? <a class="small-link" href="#reset">Reset it</a></p>
+            <p class="small-text">Don't have an account? <a class="small-link" href="#register">Register</a></p>
+        </section>
 
-    <h2>Login</h2>
+        <section id="registerPanel" class="panel">
+            <form id="registerForm">
+                <div class="form-group">
+                    <label for="regUsername">Username</label>
+                    <input type="text" id="regUsername" name="regUsername" required>
+                    <div id="regUsernameError" class="error-text">Username is required</div>
+                </div>
+                <div class="form-group">
+                    <label for="regEmail">Email Address</label>
+                    <input type="email" id="regEmail" name="regEmail" required>
+                    <div id="regEmailError" class="error-text">Valid email is required</div>
+                </div>
+                <div class="form-group">
+                    <label for="regPhone">Phone Number</label>
+                    <input type="tel" id="regPhone" name="regPhone" required>
+                    <div id="regPhoneError" class="error-text">Phone number is required</div>
+                </div>
+                <div class="form-group">
+                    <label for="regPassword">Password</label>
+                    <input type="password" id="regPassword" name="regPassword" required>
+                    <div id="regPasswordError" class="error-text">Password must be at least 6 characters</div>
+                </div>
+                <div class="form-group">
+                    <label for="regConfirmPassword">Confirm Password</label>
+                    <input type="password" id="regConfirmPassword" name="regConfirmPassword" required>
+                    <div id="regConfirmPasswordError" class="error-text">Passwords do not match</div>
+                </div>
+                <button type="submit">Register</button>
+                <div id="registerMessage" class="message"></div>
+            </form>
+            <p class="small-text">Already have an account? <a class="small-link" href="#login">Login</a></p>
+        </section>
 
-    <label>Username</label><br>
-    <input type="text" id="username">
+        <section id="resetPanel" class="panel">
+            <form id="resetForm">
+                <div class="form-group">
+                    <label for="resetEmail">Email address</label>
+                    <input type="email" id="resetEmail" name="resetEmail" placeholder="you@example.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="resetNewPassword">New password</label>
+                    <input type="password" id="resetNewPassword" name="resetNewPassword" required minlength="8" placeholder="Enter new password">
+                </div>
+                <div class="form-group">
+                    <label for="resetConfirmPassword">Confirm password</label>
+                    <input type="password" id="resetConfirmPassword" name="resetConfirmPassword" required minlength="8" placeholder="Repeat new password">
+                </div>
+                <button type="submit">Reset Password</button>
+                <div id="resetMessage" class="message"></div>
+            </form>
+            <p class="small-text">Remembered your password? <a class="small-link" href="#login">Login</a></p>
+        </section>
+    </div>
 
-    <label>Password</label><br>
-    <input type="password" id="password">
-    <br>
+    <script>
+        const panels = {
+            login: document.getElementById('loginPanel'),
+            register: document.getElementById('registerPanel'),
+            reset: document.getElementById('resetPanel')
+        };
 
-    <label>forgot password? <a href="password.html">Click here</a></label>
-    <br><br>
+        const panelTitle = document.getElementById('panelTitle');
+        const pupils = document.querySelectorAll('.funny-character .pupil');
+        const passwordInputs = document.querySelectorAll('input[type="password"]');
+        let isLookingAway = false;
+        let lastMousePosition = { clientX: window.innerWidth / 2, clientY: window.innerHeight / 2 };
 
+        function setLookAway(value) {
+            isLookingAway = value;
+            document.querySelectorAll('.funny-character').forEach(character => {
+                character.classList.toggle('look-away', value);
+            });
+            if (value) {
+                pupils.forEach(pupil => {
+                    pupil.style.transform = 'translate(0, 6px)';
+                });
+            } else {
+                updateEyes(lastMousePosition);
+            }
+        }
 
-    <button onclick="submitForm()">Login</button>
-    <br><br>
-    
-    <label>dont have an account? <a href="register.html">Register</a></label>
-    
+        function updateEyes(event) {
+            if (event && event.clientX !== undefined) {
+                lastMousePosition = { clientX: event.clientX, clientY: event.clientY };
+            }
+            if (isLookingAway) return;
+            pupils.forEach(pupil => {
+                const eye = pupil.parentElement;
+                const rect = eye.getBoundingClientRect();
+                const dx = lastMousePosition.clientX - (rect.left + rect.width / 2);
+                const dy = lastMousePosition.clientY - (rect.top + rect.height / 2);
+                const dist = Math.min(4.5, Math.sqrt(dx * dx + dy * dy) / 15);
+                const angle = Math.atan2(dy, dx);
+                const x = Math.cos(angle) * dist;
+                const y = Math.sin(angle) * dist;
+                pupil.style.transform = `translate(${x}px, ${y}px)`;
+            });
+        }
 
-</div>
+        passwordInputs.forEach(input => {
+            input.addEventListener('focus', () => setLookAway(true));
+            input.addEventListener('blur', () => setLookAway(false));
+            input.addEventListener('mouseenter', () => setLookAway(true));
+            input.addEventListener('mouseleave', () => {
+                if (!input.matches(':focus')) {
+                    setLookAway(false);
+                }
+            });
+        });
 
-<script>
-function submitForm() {
-    var username = document.getElementById("username").value;
-    alert("Login successful for user: " + username);
-}
-</script>
+        window.addEventListener('mousemove', updateEyes);
 
+        function setActivePanel(name) {
+            Object.keys(panels).forEach(key => {
+                panels[key].classList.toggle('active', key === name);
+            });
+
+            const titles = {
+                login: 'Login',
+                register: 'Register',
+                reset: 'Reset Password'
+            };
+
+            panelTitle.textContent = titles[name] || 'Login';
+            location.hash = name;
+        }
+
+        function updatePanelFromHash() {
+            const hash = location.hash.replace('#', '');
+            if (hash && panels[hash]) {
+                setActivePanel(hash);
+            } else {
+                setActivePanel('login');
+            }
+        }
+
+        window.addEventListener('hashchange', updatePanelFromHash);
+        updatePanelFromHash();
+
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const username = document.getElementById('loginUsername').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            const message = document.getElementById('loginMessage');
+
+            if (!username || !password) {
+                message.textContent = 'Please enter both username and password.';
+                message.className = 'message error';
+                return;
+            }
+
+            alert('Login successful for user: ' + username);
+            message.textContent = '';
+            this.reset();
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const username = document.getElementById('regUsername').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const phone = document.getElementById('regPhone').value.trim();
+            const password = document.getElementById('regPassword').value;
+            const confirmPassword = document.getElementById('regConfirmPassword').value;
+            const message = document.getElementById('registerMessage');
+
+            hideError('regUsernameError');
+            hideError('regEmailError');
+            hideError('regPhoneError');
+            hideError('regPasswordError');
+            hideError('regConfirmPasswordError');
+
+            let isValid = true;
+
+            if (!username) {
+                showError('regUsernameError');
+                isValid = false;
+            }
+
+            if (!validateEmail(email)) {
+                showError('regEmailError');
+                isValid = false;
+            }
+
+            if (!phone) {
+                showError('regPhoneError');
+                isValid = false;
+            }
+
+            if (password.length < 6) {
+                showError('regPasswordError');
+                isValid = false;
+            }
+
+            if (password !== confirmPassword) {
+                showError('regConfirmPasswordError');
+                isValid = false;
+            }
+
+            if (!isValid) {
+                message.textContent = '';
+                message.className = 'message';
+                return;
+            }
+
+            alert('Registration successful!');
+            message.textContent = 'Registration successful! You can now login.';
+            message.className = 'message success';
+            this.reset();
+        });
+
+        document.getElementById('resetForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+            const email = document.getElementById('resetEmail').value.trim();
+            const newPassword = document.getElementById('resetNewPassword').value;
+            const confirmPassword = document.getElementById('resetConfirmPassword').value;
+            const message = document.getElementById('resetMessage');
+
+            if (!email) {
+                message.textContent = 'Please enter your email address.';
+                message.className = 'message error';
+                return;
+            }
+
+            if (!validateEmail(email)) {
+                message.textContent = 'Please enter a valid email address.';
+                message.className = 'message error';
+                return;
+            }
+
+            if (newPassword.length < 8) {
+                message.textContent = 'Password must be at least 8 characters long.';
+                message.className = 'message error';
+                return;
+            }
+
+            if (newPassword !== confirmPassword) {
+                message.textContent = 'Passwords do not match.';
+                message.className = 'message error';
+                return;
+            }
+
+            message.textContent = 'Your password has been reset successfully.';
+            message.className = 'message success';
+            this.reset();
+        });
+
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function showError(id) {
+            document.getElementById(id).style.display = 'block';
+        }
+
+        function hideError(id) {
+            document.getElementById(id).style.display = 'none';
+        }
+    </script>
 </body>
 </html>
+
