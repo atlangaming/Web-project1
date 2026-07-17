@@ -13,7 +13,7 @@ body {
     overflow-x: hidden;
     padding: 150px 0 40px;
     font-family: Arial, sans-serif;
-    background-image: url('background image.jpg');
+    background-image: url('/Web-project1/frontend/assets/background\ image.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
