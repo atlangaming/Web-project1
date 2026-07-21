@@ -10,7 +10,12 @@
 
 </head>
 <body>
+
+
+    <!-- it is all the funny characters in the background of the login page, they are just for decoration and do not have any functional purpose. -->
     <div class="background-characters" aria-hidden="true">
+
+        <!-- character 1 -->
         <div class="funny-character char-1">
             <div class="face">
                 <div class="eye left"><div class="pupil"></div></div>
@@ -20,6 +25,8 @@
                 <div class="horn right"></div>
             </div>
         </div>
+
+        <!-- character 2 -->
         <div class="funny-character char-2">
             <div class="face">
                 <div class="eye left"><div class="pupil"></div></div>
@@ -28,6 +35,8 @@
                 <div class="star"></div>
             </div>
         </div>
+
+        <!-- character 3 -->
         <div class="funny-character char-3">
             <div class="face">
                 <div class="eye left"><div class="pupil"></div></div>
@@ -36,6 +45,8 @@
                 <div class="mouth mouth-flat"></div>
             </div>
         </div>
+
+        <!-- character 4 -->
         <div class="funny-character char-4">
             <div class="face">
                 <div class="eye left"><div class="pupil"></div></div>
@@ -44,6 +55,8 @@
                 <div class="mouth mouth-grin"></div>
             </div>
         </div>
+
+        <!-- character 5 -->
         <div class="funny-character char-5">
             <div class="face">
                 <div class="eye left"><div class="pupil"></div></div>
@@ -53,73 +66,112 @@
             </div>
         </div>
     </div>
+
+    <!-- this is the main section in which the login, register, and reset panels are there -->
     <div class="page">
         <h1 id="panelTitle">Login</h1>
-
+        
+        <!-- the default active panel -->
         <section id="loginPanel" class="panel active">
+
+            <!-- login form -->
             <form id="loginForm">
                 <div class="form-group">
+
+                    <!-- username -->
                     <label for="loginUsername">Username</label>
                     <input type="text" id="loginUsername" name="loginUsername" required>
                 </div>
                 <div class="form-group">
+
+                    <!-- password -->
                     <label for="loginPassword">Password</label>
                     <input type="password" id="loginPassword" name="loginPassword" required>
                 </div>
+
+                <!-- login button -->
                 <button type="submit">Login</button>
                 <div id="loginMessage" class="message"></div>
             </form>
+
+            <!-- link for other panels -->
             <p class="small-text">Forgot password? <a class="small-link" href="#reset">Reset it</a></p>
             <p class="small-text">Don't have an account? <a class="small-link" href="#register">Register</a></p>
         </section>
 
+        <!-- register panel -->
         <section id="registerPanel" class="panel">
+
+            <!-- register form -->
             <form id="registerForm">
                 <div class="form-group">
+
+                    <!-- username -->
                     <label for="regUsername">Username</label>
                     <input type="text" id="regUsername" name="regUsername" required>
                     <div id="regUsernameError" class="error-text">Username is required</div>
                 </div>
                 <div class="form-group">
+
+                    <!-- email -->
                     <label for="regEmail">Email Address</label>
                     <input type="email" id="regEmail" name="regEmail" required>
                     <div id="regEmailError" class="error-text">Valid email is required</div>
                 </div>
                 <div class="form-group">
+
+                    <!-- phone number -->
                     <label for="regPhone">Phone Number</label>
                     <input type="tel" id="regPhone" name="regPhone" required>
                     <div id="regPhoneError" class="error-text">Phone number is required</div>
                 </div>
                 <div class="form-group">
+
+                    <!-- password -->
                     <label for="regPassword">Password</label>
                     <input type="password" id="regPassword" name="regPassword" required>
                     <div id="regPasswordError" class="error-text">Password must be at least 6 characters</div>
                 </div>
                 <div class="form-group">
+
+                    <!-- confirm password -->
                     <label for="regConfirmPassword">Confirm Password</label>
                     <input type="password" id="regConfirmPassword" name="regConfirmPassword" required>
                     <div id="regConfirmPasswordError" class="error-text">Passwords do not match</div>
                 </div>
+
+                <!-- register button -->
                 <button type="submit">Register</button>
                 <div id="registerMessage" class="message"></div>
             </form>
             <p class="small-text">Already have an account? <a class="small-link" href="#login">Login</a></p>
         </section>
 
+        <!-- reset panel -->
         <section id="resetPanel" class="panel">
+
+            <!-- reset form -->
             <form id="resetForm">
                 <div class="form-group">
+
+                    <!-- email -->
                     <label for="resetEmail">Email address</label>
                     <input type="email" id="resetEmail" name="resetEmail" placeholder="you@example.com" required>
                 </div>
                 <div class="form-group">
+
+                    <!-- new password -->
                     <label for="resetNewPassword">New password</label>
                     <input type="password" id="resetNewPassword" name="resetNewPassword" required minlength="8" placeholder="Enter new password">
                 </div>
                 <div class="form-group">
+
+                    <!-- confirm new password -->
                     <label for="resetConfirmPassword">Confirm password</label>
                     <input type="password" id="resetConfirmPassword" name="resetConfirmPassword" required minlength="8" placeholder="Repeat new password">
                 </div>
+
+                <!-- reset button -->
                 <button type="submit">Reset Password</button>
                 <div id="resetMessage" class="message"></div>
             </form>
